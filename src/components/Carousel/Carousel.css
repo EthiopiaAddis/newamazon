@@ -1,0 +1,76 @@
+/* Reset browser spacing */
+body, html {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+/* Wrapper */
+.carousel-wrapper {
+  width: 100%;
+  height: 90vh; /* Change to 100vh for full-screen effect */
+  position: relative;
+  overflow: hidden;
+}
+
+/* Slide container */
+.carousel-slide {
+  position: relative;
+  width: 100%;
+  height: 90vh;
+}
+
+/* Main image styling */
+.carousel .slide img {
+  width: 100%;           /* Full browser width */
+  height: 90vh;          /* Adjust for visible height */
+  object-fit: cover;     /* Ensures image covers entire area */
+}
+
+/* Fade at the bottom */
+.carousel-slide::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 150px;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, #fff 100%);
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Hide unwanted elements */
+.carousel .carousel-status,
+.carousel .thumbs-wrapper {
+  display: none;
+}
+
+/* Arrows */
+.carousel .control-arrow {
+  background-color: rgba(0, 0, 0, 0.4);
+  border-radius: 50%;
+  padding: 10px;
+  transition: background-color 0.3s ease;
+}
+
+.carousel .control-arrow:hover {
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+/* Dots */
+.carousel .control-dots {
+  bottom: 20px;
+  z-index: 3;
+}
+
+.carousel .dot {
+  background: #ccc;
+  width: 10px;
+  height: 10px;
+  margin: 0 4px;
+}
+
+.carousel .dot.selected {
+  background: #f90;
+}
