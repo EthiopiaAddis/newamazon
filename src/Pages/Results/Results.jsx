@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import { producturl } from "../../API/endpoint";
 import LayOut from "../../components/LayOut/LayOut";
+import ProductCard from "../../components/Product/ProductCard";
 import "./Results.css";
 
 const Result = () => {
@@ -22,11 +23,7 @@ const Result = () => {
         <h2 style={{ margin: "20px" }}>Category: {catagoryName}</h2>
         <div className="product-grid">
           {products.map((product) => (
-            <div key={product.id} className="product-card">
-              <img src={product.image} alt={product.title} height="150" />
-              <h4>{product.title}</h4>
-              <p>${product.price}</p>
-            </div>
+            <ProductCard key={product.id} product={product} />
           ))}
         </div>
       </div>

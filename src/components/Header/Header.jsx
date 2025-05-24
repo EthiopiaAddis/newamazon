@@ -54,7 +54,8 @@ function Header() {
           </div>
 
           <div className="header_option_group">
-            <Link to="/signin" className="header_option">
+            {/* Changed from /auth to /signup */}
+            <Link to="/signup" className="header_option">
               <span className="option_line1">Hello, Sign in</span>
               <span className="option_line2">Account & Lists</span>
             </Link>
