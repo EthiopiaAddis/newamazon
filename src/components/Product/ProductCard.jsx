@@ -4,7 +4,25 @@ import CurrencyFormat from "../CurrencyFormat/CurrencyFormat";
 import Rating from "@mui/material/Rating";
 import "./Product.css";
 
+import { useStateValue } from "../Dataprovider/DataProvider.js";
+import { actionType } from "../../Utility/ActionType";
+
 const ProductCard = ({ product }) => {
+  const [, dispatch] = useStateValue();
+
+  const addToCart = () => {
+    dispatch({
+      type: actionType.ADD_TO_CART,
+      item: {
+        id: product.id,
+        title: product.title,
+        image: product.image,
+        price: product.price,
+        rating: product.rating,
+      },
+    });
+  };
+
   return (
     <div className="product_card">
       <Link
@@ -30,9 +48,9 @@ const ProductCard = ({ product }) => {
         <CurrencyFormat amount={product.price} />
       </p>
 
-      <a href="#" className="add_to_cart">
+      <button onClick={addToCart} className="add_to_cart">
         Add to Cart
-      </a>
+      </button>
     </div>
   );
 };

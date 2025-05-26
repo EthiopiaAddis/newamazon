@@ -1,12 +1,16 @@
+// src/App.js
 import React from "react";
 import { BrowserRouter } from "react-router-dom";
-import Router from "./Router"; // your custom Router.jsx
+import Router from "./Router";
+import { DataProvider } from "./components/Dataprovider/DataProvider"; // ✅ import DataProvider
 
 const App = () => {
   return (
-    <BrowserRouter>
-      <Router />
-    </BrowserRouter>
+    <DataProvider>
+      <BrowserRouter>
+        <Router />
+      </BrowserRouter>
+    </DataProvider>
   );
 };
 
