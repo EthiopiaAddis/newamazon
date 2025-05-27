@@ -7,6 +7,7 @@ body, html {
 
 /* Wrapper */
 .carousel-wrapper {
+  margin-top: -150px;
   width: 100%;
   height: 90vh; /* Change to 100vh for full-screen effect */
   position: relative;
