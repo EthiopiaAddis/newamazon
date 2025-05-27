@@ -6,7 +6,7 @@
   padding: 2rem;
   background-color: #f3f3f3;
   min-height: 100vh;
-  margin-top: -150px;
+  margin-top: -60px;
   gap: 25px;
 }
 
@@ -19,13 +19,15 @@
 }
 
 .cart_right {
-  flex: 0.3;
+  position: fixed;
+  top: 80px;  /* adjust for header */
+  right: 20px; /* or whatever spacing you want from right edge */
+  width: 300px; /* fixed width since flex won't apply */
+  height: auto;
   background-color: #fff;
   padding: 1.5rem;
   border-radius: 8px;
   border: 1px solid lightgray;
-  height: fit-content;
-  align-self: flex-start;
 }
 
 .cart_item {

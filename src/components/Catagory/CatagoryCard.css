@@ -48,3 +48,8 @@
 .shop-now:hover {
   text-decoration: underline;
 }
+.catagory-card-link {
+  text-decoration: none;  /* removes underline */
+  color: inherit;         /* keeps text color same as surrounding */
+  display: inline-block;  /* optional, helps with layout */
+}

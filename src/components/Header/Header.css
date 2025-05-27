@@ -2,11 +2,18 @@
 
 /* Sticky container */
 .sticky_header {
-  position: sticky;
+  position: fixed;
   top: 0;
+  left: 0;
+  right: 0;
   z-index: 9999;
-  background-color: #131921; /* match your header background */
+  background-color: #131921;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+}
+
+/* Ensure space below fixed header */
+body {
+  padding-top: 110px; /* Total height of header + bottom nav */
 }
 
 /* Wrapper inside sticky container */
@@ -22,7 +29,7 @@
   padding: 10px 20px;
   color: white;
   font-family: Arial, sans-serif;
-  height: 60px; /* increased height for proper spacing */
+  height: 60px;
   background-color: #131921;
 }
 
