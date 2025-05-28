@@ -1,7 +1,7 @@
 import React from "react";
 import { categoryData } from "./CatagoryFullinfo";
 import CatagoryCard from "./CatagoryCard";
-import "./Caragory.css"; // make sure this is spelled correctly
+import "./Caragory.css"; 
 
 const Catagory = () => {
   return (

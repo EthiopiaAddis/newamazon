@@ -1,4 +1,4 @@
-// src/components/Catagory/CatagoryFullinfo.js
+
 export const categoryData = [
   {
     title: "electronics",

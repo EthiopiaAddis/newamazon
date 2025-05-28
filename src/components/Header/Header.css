@@ -1,6 +1,4 @@
-/* Header.css */
 
-/* Sticky container */
 .sticky_header {
   position: fixed;
   top: 0;
@@ -11,17 +9,17 @@
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
 }
 
-/* Ensure space below fixed header */
+
 body {
-  padding-top: 110px; /* Total height of header + bottom nav */
+  padding-top: 110px; 
 }
 
-/* Wrapper inside sticky container */
+
 .header_wrapper {
   width: 100%;
 }
 
-/* ========== TOP HEADER STYLES ========== */
+
 .header {
   display: flex;
   justify-content: space-between;
@@ -188,7 +186,7 @@ body {
   box-shadow: none;
 }
 
-/* ========== BOTTOM NAVIGATION BAR STYLES ========== */
+
 
 .header_bottom {
   background-color: #252e42;

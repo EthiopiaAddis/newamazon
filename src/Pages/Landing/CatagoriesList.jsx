@@ -1,4 +1,4 @@
-// src/Pages/Landing/CategoriesList.jsx
+
 import React from "react";
 import CatagoryCard from "../../components/CatagoryCard/CatagoryCard";
 

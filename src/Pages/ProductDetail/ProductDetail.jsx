@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import { producturl } from "../../API/endpoint";
 import FadeLoader from "react-spinners/FadeLoader";
-import "./ProductDetail.css"; // Optional for styling
+import "./ProductDetail.css"; 
 
 const ProductDetail = () => {
   const { productId } = useParams();

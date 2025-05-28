@@ -29,7 +29,7 @@
   margin: 10px 0;
 }
 
-/* Wrapper for rating and count, aligned left */
+
 .rating_price_wrapper {
   display: flex;
   align-items: center;
@@ -44,15 +44,14 @@
   color: #555;
 }
 
-/* Price below rating, aligned left */
+
 .product_price {
-  margin: 0 0 30px 5px; /* left margin to align with rating */
+  margin: 0 0 30px 5px; 
   font-weight: bold;
   text-align: left;
 }
 
-/* Add to Cart hidden by default */
-/* Add to Cart hidden by default */
+
 .add_to_cart {
   position: absolute;
   bottom: 15px;
@@ -80,7 +79,7 @@
   box-sizing: border-box;
 }
 
-/* Show Add to Cart button on hover */
+
 .product_card:hover .add_to_cart {
   opacity: 1;
   pointer-events: auto;

@@ -4,26 +4,26 @@ import axios from "axios";
 import { producturl } from "../../API/endpoint";
 import LayOut from "../../components/LayOut/LayOut";
 import ProductCard from "../../components/Product/ProductCard";
-import Loader from "../../components/Loader/Loader"; // import your Loader here
+import Loader from "../../components/Loader/Loader"; 
 import "./Results.css";
 
 const Result = () => {
   const { catagoryName } = useParams();
   const [products, setProducts] = useState([]);
-  const [isLoading, setIsLoading] = useState(true); // loading state
+  const [isLoading, setIsLoading] = useState(true); 
 
   useEffect(() => {
-    setIsLoading(true); // start loader before fetch
+    setIsLoading(true); 
 
     axios
       .get(`${producturl}/products/category/${catagoryName}`)
       .then((res) => {
         setProducts(res.data);
-        setIsLoading(false); // stop loader after fetch success
+        setIsLoading(false); 
       })
       .catch((err) => {
         console.error("Error fetching category products:", err);
-        setIsLoading(false); // stop loader even on error
+        setIsLoading(false); 
       });
   }, [catagoryName]);
 
@@ -33,7 +33,7 @@ const Result = () => {
         <h2 style={{ margin: "20px" }}>Category: {catagoryName}</h2>
 
         {isLoading ? (
-          <Loader /> // show loader while loading
+          <Loader /> 
         ) : (
           <div className="product-grid">
             {products.length > 0 ? (

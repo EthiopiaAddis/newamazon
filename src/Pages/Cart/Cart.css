@@ -20,9 +20,9 @@
 
 .cart_right {
   position: fixed;
-  top: 80px;  /* adjust for header */
-  right: 20px; /* or whatever spacing you want from right edge */
-  width: 300px; /* fixed width since flex won't apply */
+  top: 80px;  
+  right: 20px; 
+  width: 300px; 
   height: auto;
   background-color: #fff;
   padding: 1.5rem;

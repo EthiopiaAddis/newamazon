@@ -10,7 +10,7 @@ function Header() {
   return (
     <header className="sticky_header">
       <div className="header_wrapper">
-        {/* ===== Top Header ===== */}
+        {}
         <div className="header">
           <div className="header_left">
             <Link to="/">
@@ -78,7 +78,7 @@ function Header() {
           </div>
         </div>
 
-        {/* ===== Bottom Header (Navigation) ===== */}
+        {}
         <div className="header_bottom">
           <ul className="bottom_nav">
             <li className="nav_item">Today's Deals</li>

@@ -10,7 +10,7 @@ export const reducer = (state, action) => {
       );
 
       if (existingItemIndex !== -1) {
-        // Item already exists, increase qty without mutating original state
+        
         const updatedCart = state.cart.map((item, index) =>
           index === existingItemIndex ? { ...item, qty: item.qty + 1 } : item
         );
@@ -21,7 +21,7 @@ export const reducer = (state, action) => {
         };
       }
 
-      // If item is not in cart, add with qty 1
+      
       return {
         ...state,
         cart: [...state.cart, { ...action.item, qty: 1 }],
