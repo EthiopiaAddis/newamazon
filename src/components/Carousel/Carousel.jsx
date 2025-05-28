@@ -1,7 +1,7 @@
 import React from "react";
 import { Carousel as ResponsiveCarousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import { img } from "./img/data"; // ✅ lowercase
+import { img } from "./img/data.js"; // ✅ lowercase
 import "./Carousel.css";
 
 const Carousel = () => {

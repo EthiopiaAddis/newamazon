@@ -21,7 +21,7 @@ export const reducer = (state, action) => {
         };
       }
 
-      
+      // If item is not in cart, add with qty 1
       return {
         ...state,
         cart: [...state.cart, { ...action.item, qty: 1 }],
