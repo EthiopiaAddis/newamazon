@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./SignUp.css";
@@ -42,8 +41,7 @@ function SignUp() {
         </form>
 
         <p className="signup-disclaimer">
-          By continuing, you agree to Amazon’s Conditions of Use and Privacy
-          Notice. 
+          By continuing, you agree to Amazon’s Conditions of Use and Privacy Notice.
         </p>
 
         <div className="signup-create-button">
@@ -53,15 +51,6 @@ function SignUp() {
         </div>
       </div>
     </div>
-=======
-import React from "react";
-import LayOut from "../../components/LayOut/LayOut";
-function SignUp() {
-  return (
-    <LayOut>
-      <div>SignUp</div>
-    </LayOut>
->>>>>>> 350ba2a61035ec0dd0adf114e440730b1a2a689b
   );
 }
 
