@@ -1,0 +1,98 @@
+/* src/Pages/Cart.css */
+
+.cart_container {
+  display: flex;
+  justify-content: space-between;
+  padding: 2rem;
+  background-color: #f3f3f3;
+  min-height: 100vh;
+  margin-top: -60px;
+  gap: 25px;
+}
+
+.cart_left {
+  flex: 0.7;
+  background-color: #fff;
+  padding: 1rem;
+  border-radius: 8px;
+  
+}
+
+.cart_right {
+  position: fixed;
+  top: 80px;  
+  right: 20px; 
+  width: 300px; 
+  height: auto;
+  background-color: #fff;
+  padding: 1.5rem;
+  border-radius: 8px;
+  border: 1px solid lightgray;
+}
+
+.cart_item {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  align-items: center;
+}
+
+.cart_image {
+  width: 100px;
+  height: auto;
+  object-fit: contain;
+}
+
+.cart_item_details {
+  flex: 1;
+}
+
+.cart_price {
+  color: orange;
+  font-weight: bold;
+  margin-top: 0.5rem;
+}
+
+.qty_controls {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin: 0.5rem 0;
+}
+
+.qty_controls button {
+  padding: 4px 10px;
+  background-color: orange;
+  color: white;
+  border: none;
+  border-radius: 5px;
+}
+
+.remove_btn {
+  background-color: red;
+  color: white;
+  padding: 4px 12px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.subtotal_box {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.gift_option {
+  font-size: 0.9rem;
+}
+
+.checkout_btn {
+  background-color: orange;
+  color: white;
+  padding: 10px;
+  border: none;
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+}
