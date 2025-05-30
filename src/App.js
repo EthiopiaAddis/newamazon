@@ -13,5 +13,9 @@ const App = () => {
     </DataProvider>
   );
 };
+<<<<<<< HEAD
+=======
+console.log("test git trigger");
+>>>>>>> 350ba2a61035ec0dd0adf114e440730b1a2a689b
 
 export default App;
