@@ -1,7 +1,6 @@
-
 import React from "react";
 import { FadeLoader } from "react-spinners";
-import "./Loader.css"; 
+import "./Loader.css";
 
 const Loader = () => {
   return (

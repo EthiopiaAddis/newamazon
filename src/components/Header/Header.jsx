@@ -1,16 +1,27 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./Header.css";
 import { FaMapMarkerAlt, FaShoppingCart, FaSearch } from "react-icons/fa";
-import { useStateValue } from "../Dataprovider/DataProvider.js";
+import { useStateValue } from "../Dataprovider/DataProvider";
+import { auth } from "../../Utility/Firebase";
+import { actionType } from "../../Utility/ActionType";
 
 function Header() {
-  const [{ cart }] = useStateValue();
+  const [{ cart, user }, dispatch] = useStateValue();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    auth.signOut().then(() => {
+      dispatch({ type: actionType.SET_USER, user: null });
+      navigate("/");
+    });
+  };
+
+  const username = user?.email?.split("@")[0]?.toLowerCase() || "";
 
   return (
     <header className="sticky_header">
       <div className="header_wrapper">
-        {}
         <div className="header">
           <div className="header_left">
             <Link to="/">
@@ -45,7 +56,7 @@ function Header() {
           </div>
 
           <div className="header_right">
-            <div className="language_selector">
+            <div className="language_selector" title="Language">
               <img
                 className="flag_icon"
                 src="https://flagcdn.com/us.svg"
@@ -58,10 +69,21 @@ function Header() {
             </div>
 
             <div className="header_option_group">
-              <Link to="/signup" className="header_option">
-                <span className="option_line1">Hello, Sign in</span>
-                <span className="option_line2">Account & Lists</span>
-              </Link>
+              {user ? (
+                <div
+                  className="header_option"
+                  style={{ cursor: "pointer" }}
+                  onClick={handleLogout}
+                >
+                  <span className="option_line1">Hello, {username}</span>
+                  <span className="option_line2">Logout</span>
+                </div>
+              ) : (
+                <Link to="/signup" className="header_option">
+                  <span className="option_line1">Hello, Sign in</span>
+                  <span className="option_line2">Account & Lists</span>
+                </Link>
+              )}
             </div>
 
             <div className="header_option_group">
@@ -71,14 +93,13 @@ function Header() {
               </Link>
             </div>
 
-            <Link to="/cart" className="header_option_cart">
+            <Link to="/cart" className="header_option_cart" title="Cart">
               <FaShoppingCart className="cart_icon" />
-              <span className="cart_count">{cart?.length || 0}</span>
+              <span className="cart_count">{cart.length}</span>
             </Link>
           </div>
         </div>
 
-        {}
         <div className="header_bottom">
           <ul className="bottom_nav">
             <li className="nav_item">Today's Deals</li>

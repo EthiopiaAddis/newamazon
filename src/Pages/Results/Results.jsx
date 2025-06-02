@@ -4,26 +4,26 @@ import axios from "axios";
 import { producturl } from "../../API/endpoint";
 import LayOut from "../../components/LayOut/LayOut";
 import ProductCard from "../../components/Product/ProductCard";
-import Loader from "../../components/Loader/Loader"; 
+import Loader from "../../components/Loader/Loader";
 import "./Results.css";
 
 const Result = () => {
   const { catagoryName } = useParams();
   const [products, setProducts] = useState([]);
-  const [isLoading, setIsLoading] = useState(true); 
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    setIsLoading(true); 
+    setIsLoading(true);
 
     axios
       .get(`${producturl}/products/category/${catagoryName}`)
       .then((res) => {
         setProducts(res.data);
-        setIsLoading(false); 
+        setIsLoading(false);
       })
       .catch((err) => {
         console.error("Error fetching category products:", err);
-        setIsLoading(false); 
+        setIsLoading(false);
       });
   }, [catagoryName]);
 
@@ -33,7 +33,7 @@ const Result = () => {
         <h2 style={{ margin: "20px" }}>Category: {catagoryName}</h2>
 
         {isLoading ? (
-          <Loader /> 
+          <Loader />
         ) : (
           <div className="product-grid">
             {products.length > 0 ? (
