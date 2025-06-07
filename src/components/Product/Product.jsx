@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import ProductCard from "./ProductCard";
 import Loader from "../Loader/Loader";
+import LayOut from "../LayOut/LayOut"; // import LayOut
 import "./Product.css";
 
 const Product = () => {
@@ -23,15 +24,19 @@ const Product = () => {
   }, []);
 
   return (
-    <div className="product_container">
-      {isLoading ? (
-        <Loader />
-      ) : (
-        products.map((product) => (
-          <ProductCard key={product.id} product={product} />
-        ))
-      )}
-    </div>
+    <LayOut>
+      {" "}
+      {/* Wrap everything inside LayOut */}
+      <div className="product_container">
+        {isLoading ? (
+          <Loader />
+        ) : (
+          products.map((product) => (
+            <ProductCard key={product.id} product={product} />
+          ))
+        )}
+      </div>
+    </LayOut>
   );
 };
 

@@ -1,5 +1,7 @@
 export const actionType = {
   ADD_TO_CART: "ADD_TO_CART",
   REMOVE_FROM_CART: "REMOVE_FROM_CART",
-  SET_USER: "SET_USER", // ✅ make sure this is added
+  CLEAR_CART: "CLEAR_CART",
+  SET_USER: "SET_USER",
+  CHECKOUT_CART_TO_ORDERS: "CHECKOUT_CART_TO_ORDERS", // ✅ Add this
 };

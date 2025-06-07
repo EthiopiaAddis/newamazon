@@ -1,6 +1,7 @@
 // src/Pages/Cart.jsx
 
 import React from "react";
+import { useNavigate } from "react-router-dom"; // <-- import useNavigate
 import LayOut from "../../components/LayOut/LayOut";
 import { useStateValue } from "../../components/Dataprovider/DataProvider";
 import CurrencyFormat from "../../components/CurrencyFormat/CurrencyFormat";
@@ -9,6 +10,7 @@ import "./Cart.css";
 
 function Cart() {
   const [{ cart }, dispatch] = useStateValue();
+  const navigate = useNavigate(); // <-- initialize navigate
 
   const calculateTotal = () =>
     cart?.reduce((acc, item) => acc + item.price * item.qty, 0);
@@ -23,6 +25,10 @@ function Cart() {
 
   const removeFromCart = (id) => {
     dispatch({ type: "REMOVE_FROM_CART", id });
+  };
+
+  const goToPayment = () => {
+    navigate("/payment"); // <-- navigate to payment page
   };
 
   return (
@@ -79,7 +85,9 @@ function Cart() {
             <label className="gift_option">
               <input type="checkbox" /> This order contains a gift
             </label>
-            <button className="checkout_btn">Proceed to Checkout</button>
+            <button className="checkout_btn" onClick={goToPayment}>
+              Proceed to Checkout
+            </button>
           </div>
         </div>
       </div>

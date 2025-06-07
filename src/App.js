@@ -1,17 +1,26 @@
+// src/App.js
 import React from "react";
 import { BrowserRouter } from "react-router-dom";
-import Router from "./Router";
-import { DataProvider } from "./components/Dataprovider/DataProvider"; // ✅ import DataProvider
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
+import { DataProvider } from "./components/Dataprovider/DataProvider";
+import Router from "./Router"; // your file with all the Routes
 
-const App = () => {
+// Load Stripe with your PUBLIC key
+const stripePromise = loadStripe(
+  "pk_test_51RVhP9AiTj6b3ZzhDiDQE7N3gILoL3JMGhCSmf2XpugtBRyBuD3ppdMuo5QteYOqnOO4ojXVRd010YFwyVWFAHhN00Xkv6zbAU"
+);
+
+function App() {
   return (
     <DataProvider>
       <BrowserRouter>
-        <Router />
+        <Elements stripe={stripePromise}>
+          <Router />
+        </Elements>
       </BrowserRouter>
     </DataProvider>
   );
-};
-console.log("test git trigger");
+}
 
 export default App;
