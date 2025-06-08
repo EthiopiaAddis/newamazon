@@ -1,10 +1,9 @@
-// src/App.js
 import React from "react";
 import { BrowserRouter } from "react-router-dom";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import { DataProvider } from "./components/Dataprovider/DataProvider";
-import Router from "./Router"; // your file with all the Routes
+import Router from "./Router";
 
 // Load Stripe with your PUBLIC key
 const stripePromise = loadStripe(

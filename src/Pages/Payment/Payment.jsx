@@ -1,11 +1,10 @@
-// src/Pages/Payment.jsx
 import React, { useEffect, useState } from "react";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import { axiosInstance } from "../../API/axios";
 import ClipLoader from "react-spinners/ClipLoader";
 import { useNavigate } from "react-router-dom";
 import { useStateValue } from "../../components/Dataprovider/DataProvider";
-import "./Payment.css"; // 👈 Import custom CSS
+import "./Payment.css";
 
 const CARD_ELEMENT_OPTIONS = {
   style: {
@@ -40,12 +39,13 @@ const Payment = () => {
   useEffect(() => {
     const getClientSecret = async () => {
       try {
-        const response = await axiosInstance.post(
-          `/payments/create?total=${Math.floor(total)}`
-        );
+        const response = await axiosInstance.post("/payments/create", {
+          total: Math.floor(total),
+        });
+        console.log("✅ clientSecret:", response.data.clientSecret);
         setClientSecret(response.data.clientSecret);
       } catch (err) {
-        console.error("Error fetching client secret", err);
+        console.error("Error fetching client secret:", err);
       }
     };
 
@@ -57,6 +57,12 @@ const Payment = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setProcessing(true);
+
+    if (!stripe || !elements) {
+      setError("Stripe has not loaded yet.");
+      setProcessing(false);
+      return;
+    }
 
     const payload = await stripe.confirmCardPayment(clientSecret, {
       payment_method: {
@@ -75,6 +81,7 @@ const Payment = () => {
       setProcessing(false);
       setSucceeded(true);
 
+      // Dispatch order to global state
       dispatch({
         type: "ADD_ORDERS",
         payload: {
@@ -84,7 +91,10 @@ const Payment = () => {
         },
       });
 
+      // Clear the cart
       dispatch({ type: "CLEAR_CART" });
+
+      // Navigate to orders page after payment success
       navigate("/orders");
     }
   };

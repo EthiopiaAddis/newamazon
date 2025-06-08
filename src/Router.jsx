@@ -19,7 +19,7 @@ const Router = () => {
       {/* Category route uses Product component */}
       <Route path="/category/:title" element={<Product />} />
 
-      {/* Product detail route, if needed */}
+      {/* Product detail route */}
       <Route path="/product/:id" element={<Product />} />
     </Routes>
   );

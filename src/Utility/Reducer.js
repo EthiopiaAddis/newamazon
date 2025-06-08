@@ -1,5 +1,3 @@
-// src/Utility/Reducer.js
-
 export const initialState = {
   cart: [],
   user: null,
@@ -46,7 +44,7 @@ export const reducer = (state, action) => {
     case "ADD_ORDERS":
       return {
         ...state,
-        orders: [...state.orders, action.payload], // payload is a single order
+        orders: [...state.orders, action.payload], // payload is a single order object
       };
 
     case "CLEAR_CART":
