@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
-import { axiosInstance } from "../../API/axios";
-import ClipLoader from "react-spinners/ClipLoader";
 import { useNavigate } from "react-router-dom";
 import { useStateValue } from "../../components/Dataprovider/DataProvider";
+import ClipLoader from "react-spinners/ClipLoader";
+import { axiosInstance } from "../../API/axios";
 import "./Payment.css";
 
 const CARD_ELEMENT_OPTIONS = {
@@ -42,7 +42,6 @@ const Payment = () => {
         const response = await axiosInstance.post("/payments/create", {
           total: Math.floor(total),
         });
-        console.log("✅ clientSecret:", response.data.clientSecret);
         setClientSecret(response.data.clientSecret);
       } catch (err) {
         console.error("Error fetching client secret:", err);
@@ -81,21 +80,29 @@ const Payment = () => {
       setProcessing(false);
       setSucceeded(true);
 
-      // Dispatch order to global state
+      const newOrder = {
+        id: `order_${Date.now()}`,
+        items: cart.map((item) => ({
+          id: item.id,
+          title: item.title,
+          price: item.price,
+          qty: item.qty,
+          image: item.image,
+        })),
+        total: total / 100,
+        status: "paid",
+        paymentId: payload.paymentIntent.id,
+        timestamp: new Date().toISOString(),
+        email: user?.email,
+      };
+
       dispatch({
         type: "ADD_ORDERS",
-        payload: {
-          items: cart,
-          timestamp: new Date().toISOString(),
-          total: total / 100,
-        },
+        payload: [newOrder],
       });
 
-      // Clear the cart
       dispatch({ type: "CLEAR_CART" });
-
-      // Navigate to orders page after payment success
-      navigate("/orders");
+      setTimeout(() => navigate("/orders"), 2000);
     }
   };
 
@@ -125,7 +132,12 @@ const Payment = () => {
         </div>
         {error && <div className="payment__error">{error}</div>}
       </form>
-      {succeeded && <p className="payment__success">Payment succeeded! 🎉</p>}
+      {succeeded && (
+        <div className="payment__success">
+          <p>Payment succeeded! 🎉</p>
+          <p>Redirecting to your orders...</p>
+        </div>
+      )}
     </div>
   );
 };
