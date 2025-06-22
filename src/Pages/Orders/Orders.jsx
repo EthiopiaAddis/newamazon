@@ -1,12 +1,27 @@
-// src/Pages/Orders.jsx
-
-import React from "react";
+// src/Pages/Orders/Orders.jsx
+import React, { useEffect, useState } from "react";
 import LayOut from "../../components/LayOut/LayOut";
-import { useStateValue } from "../../components/Dataprovider/DataProvider";
 import CurrencyFormat from "../../components/CurrencyFormat/CurrencyFormat";
+import { db } from "../../Utility/Firebase";
+import { collection, getDocs, query, orderBy } from "firebase/firestore";
+import { useStateValue } from "../../components/Dataprovider/DataProvider";
 
 function Orders() {
-  const [{ orders }] = useStateValue();
+  const [{ user }] = useStateValue();
+  const [orders, setOrders] = useState([]);
+
+  useEffect(() => {
+    const fetchOrders = async () => {
+      if (!user) return;
+
+      const ordersRef = collection(db, "users", user.uid, "orders");
+      const q = query(ordersRef, orderBy("timestamp", "desc"));
+      const snapshot = await getDocs(q);
+      setOrders(snapshot.docs.map((doc) => doc.data()));
+    };
+
+    fetchOrders();
+  }, [user]);
 
   return (
     <LayOut>
@@ -15,9 +30,9 @@ function Orders() {
         {orders.length === 0 ? (
           <p>No orders yet.</p>
         ) : (
-          orders.map((order, index) => (
+          orders.map((order) => (
             <div
-              key={index}
+              key={order.id}
               style={{
                 marginBottom: "1.5rem",
                 padding: "1rem",
@@ -35,7 +50,7 @@ function Orders() {
               <ul>
                 {order.items.map((item, idx) => (
                   <li key={idx}>
-                    {item.title} - Qty: {item.qty} -{" "}
+                    {item.title} x{item.qty} —{" "}
                     <CurrencyFormat amount={item.price} />
                   </li>
                 ))}

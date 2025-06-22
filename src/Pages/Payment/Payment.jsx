@@ -1,9 +1,12 @@
+// src/Pages/Payment/Payment.jsx
 import React, { useState, useEffect } from "react";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import { useNavigate } from "react-router-dom";
 import { useStateValue } from "../../components/Dataprovider/DataProvider";
 import ClipLoader from "react-spinners/ClipLoader";
 import { axiosInstance } from "../../API/axios";
+import { db } from "../../Utility/Firebase";
+import { doc, setDoc } from "firebase/firestore";
 import "./Payment.css";
 
 const CARD_ELEMENT_OPTIONS = {
@@ -11,13 +14,9 @@ const CARD_ELEMENT_OPTIONS = {
     base: {
       fontSize: "16px",
       color: "#32325d",
-      "::placeholder": {
-        color: "#a0aec0",
-      },
+      "::placeholder": { color: "#a0aec0" },
     },
-    invalid: {
-      color: "#fa755a",
-    },
+    invalid: { color: "#fa755a" },
   },
 };
 
@@ -38,37 +37,23 @@ const Payment = () => {
 
   useEffect(() => {
     const getClientSecret = async () => {
-      try {
-        const response = await axiosInstance.post("/payments/create", {
-          total: Math.floor(total),
-        });
-        setClientSecret(response.data.clientSecret);
-      } catch (err) {
-        console.error("Error fetching client secret:", err);
-      }
+      const { data } = await axiosInstance.post("/payments/create", {
+        total: Math.floor(total),
+      });
+      setClientSecret(data.clientSecret);
     };
 
-    if (cart.length > 0) {
-      getClientSecret();
-    }
+    if (cart.length > 0) getClientSecret();
   }, [cart, total]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setProcessing(true);
 
-    if (!stripe || !elements) {
-      setError("Stripe has not loaded yet.");
-      setProcessing(false);
-      return;
-    }
-
     const payload = await stripe.confirmCardPayment(clientSecret, {
       payment_method: {
         card: elements.getElement(CardElement),
-        billing_details: {
-          name: user?.email,
-        },
+        billing_details: { name: user?.email },
       },
     });
 
@@ -76,9 +61,8 @@ const Payment = () => {
       setError(`Payment failed: ${payload.error.message}`);
       setProcessing(false);
     } else {
-      setError(null);
-      setProcessing(false);
       setSucceeded(true);
+      setProcessing(false);
 
       const newOrder = {
         id: `order_${Date.now()}`,
@@ -87,21 +71,26 @@ const Payment = () => {
           title: item.title,
           price: item.price,
           qty: item.qty,
-          image: item.image,
         })),
         total: total / 100,
-        status: "paid",
         paymentId: payload.paymentIntent.id,
         timestamp: new Date().toISOString(),
         email: user?.email,
       };
 
-      dispatch({
-        type: "ADD_ORDERS",
-        payload: [newOrder],
-      });
+      try {
+        await setDoc(
+          doc(db, "users", user.uid, "orders", newOrder.id),
+          newOrder
+        );
+        console.log("Order saved to Firestore");
+      } catch (err) {
+        console.error("Firestore save error:", err);
+      }
 
+      dispatch({ type: "ADD_ORDERS", payload: [newOrder] });
       dispatch({ type: "CLEAR_CART" });
+
       setTimeout(() => navigate("/orders"), 2000);
     }
   };
@@ -115,11 +104,7 @@ const Payment = () => {
     <div className="payment">
       <h2>Checkout</h2>
       <form onSubmit={handleSubmit} className="payment__form">
-        <CardElement
-          options={CARD_ELEMENT_OPTIONS}
-          onChange={handleChange}
-          className="card-element"
-        />
+        <CardElement options={CARD_ELEMENT_OPTIONS} onChange={handleChange} />
         <div className="payment__priceContainer">
           <h3>Order Total: ${(total / 100).toFixed(2)}</h3>
           <button
