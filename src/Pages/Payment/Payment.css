@@ -1,9 +1,38 @@
-/* src/Pages/Payment.css */
-
 .payment {
   max-width: 500px;
   margin: auto;
   padding: 20px;
+}
+
+.payment__cartReview {
+  margin-bottom: 30px;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 20px;
+}
+
+.payment__cartItem {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.payment__cartItemImage {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+  border-radius: 6px;
+}
+
+.payment__cartItemDetails {
+  display: flex;
+  flex-direction: column;
+}
+
+.payment__cartItemTitle {
+  font-weight: 600;
+  margin: 0 0 5px 0;
+  color: #111;
 }
 
 .payment__form {

@@ -1,4 +1,3 @@
-// src/Pages/Payment/Payment.jsx
 import React, { useState, useEffect } from "react";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import { useNavigate } from "react-router-dom";
@@ -71,12 +70,12 @@ const Payment = () => {
           title: item.title,
           price: item.price,
           qty: item.qty,
-          image: item.image, // <-- Add image
-          rating: item.rating, // <-- Add rating (can be a number or object)
+          image: item.image,
+          rating: item.rating,
         })),
         total: total / 100,
         paymentId: payload.paymentIntent.id,
-        timestamp: serverTimestamp(), // Firestore server timestamp
+        timestamp: serverTimestamp(),
         email: user?.email,
       };
 
@@ -105,8 +104,37 @@ const Payment = () => {
   return (
     <div className="payment">
       <h2>Checkout</h2>
+
+      {/* Cart items review at top */}
+      <div className="payment__cartReview">
+        {cart.length === 0 ? (
+          <p>Your cart is empty.</p>
+        ) : (
+          cart.map((item) => (
+            <div className="payment__cartItem" key={item.id}>
+              <img
+                src={item.image}
+                alt={item.title}
+                className="payment__cartItemImage"
+              />
+              <div className="payment__cartItemDetails">
+                <h4 className="payment__cartItemTitle">{item.title}</h4>
+                <p>
+                  Qty: {item.qty} &times; ${item.price.toFixed(2)}
+                </p>
+                <p>Subtotal: ${(item.qty * item.price).toFixed(2)}</p>
+              </div>
+            </div>
+          ))
+        )}
+      </div>
+
       <form onSubmit={handleSubmit} className="payment__form">
-        <CardElement options={CARD_ELEMENT_OPTIONS} onChange={handleChange} />
+        <CardElement
+          options={CARD_ELEMENT_OPTIONS}
+          onChange={handleChange}
+          className="card-element"
+        />
         <div className="payment__priceContainer">
           <h3>Order Total: ${(total / 100).toFixed(2)}</h3>
           <button

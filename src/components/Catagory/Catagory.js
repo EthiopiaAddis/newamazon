@@ -46,7 +46,7 @@ const Catagory = () => {
                   className="catagory-image"
                 />
               </div>
-              <div className="shop-now">Shop now</div>
+              {/* <div className="shop-now">Shop now</div> */}
             </a>
           </div>
         ))}
