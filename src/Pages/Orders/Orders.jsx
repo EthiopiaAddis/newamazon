@@ -23,6 +23,20 @@ function Orders() {
     fetchOrders();
   }, [user]);
 
+  // Helper to render star icons based on rating number
+  const renderStars = (rate) => {
+    const fullStars = Math.floor(rate);
+    const stars = [];
+    for (let i = 0; i < fullStars; i++) {
+      stars.push(
+        <span key={i} role="img" aria-label="star" style={{ color: "#f5c518" }}>
+          ⭐
+        </span>
+      );
+    }
+    return stars;
+  };
+
   return (
     <LayOut>
       <div style={{ padding: "1rem" }}>
@@ -42,16 +56,47 @@ function Orders() {
             >
               <p>
                 <strong>Date:</strong>{" "}
-                {new Date(order.timestamp).toLocaleString()}
+                {order.timestamp?.toDate
+                  ? order.timestamp.toDate().toLocaleString()
+                  : "Unknown date"}
               </p>
               <p>
                 <strong>Total:</strong> <CurrencyFormat amount={order.total} />
               </p>
-              <ul>
+              <ul style={{ listStyle: "none", padding: 0 }}>
                 {order.items.map((item, idx) => (
-                  <li key={idx}>
-                    {item.title} x{item.qty} —{" "}
-                    <CurrencyFormat amount={item.price} />
+                  <li
+                    key={idx}
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      marginBottom: "0.5rem",
+                    }}
+                  >
+                    <img
+                      src={item.image}
+                      alt={item.title}
+                      style={{
+                        width: "80px",
+                        height: "80px",
+                        objectFit: "cover",
+                        marginRight: "1rem",
+                        borderRadius: "8px",
+                      }}
+                    />
+                    <div>
+                      <p style={{ margin: 0, fontWeight: "bold" }}>
+                        {item.title} x{item.qty}
+                      </p>
+                      <p style={{ margin: 0 }}>
+                        <strong>Price:</strong>{" "}
+                        <CurrencyFormat amount={item.price} /> &nbsp;|&nbsp;{" "}
+                        <strong>Rating:</strong>{" "}
+                        {item.rating?.rate !== undefined
+                          ? renderStars(item.rating.rate)
+                          : "N/A"}
+                      </p>
+                    </div>
                   </li>
                 ))}
               </ul>

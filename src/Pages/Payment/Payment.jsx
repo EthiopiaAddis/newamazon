@@ -6,7 +6,7 @@ import { useStateValue } from "../../components/Dataprovider/DataProvider";
 import ClipLoader from "react-spinners/ClipLoader";
 import { axiosInstance } from "../../API/axios";
 import { db } from "../../Utility/Firebase";
-import { doc, setDoc } from "firebase/firestore";
+import { doc, setDoc, serverTimestamp } from "firebase/firestore";
 import "./Payment.css";
 
 const CARD_ELEMENT_OPTIONS = {
@@ -71,10 +71,12 @@ const Payment = () => {
           title: item.title,
           price: item.price,
           qty: item.qty,
+          image: item.image, // <-- Add image
+          rating: item.rating, // <-- Add rating (can be a number or object)
         })),
         total: total / 100,
         paymentId: payload.paymentIntent.id,
-        timestamp: new Date().toISOString(),
+        timestamp: serverTimestamp(), // Firestore server timestamp
         email: user?.email,
       };
 

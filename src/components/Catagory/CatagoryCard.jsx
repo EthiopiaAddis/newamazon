@@ -4,7 +4,10 @@ import "./CatagoryCard.css";
 
 const CatagoryCard = ({ title, image }) => {
   return (
-    <Link to={`/category/${title}`} className="catagory-card-link">
+    <Link
+      to={`/category/${encodeURIComponent(title)}`}
+      className="catagory-card-link"
+    >
       <div className="catagory-card">
         <div className="catagory-title">{title}</div>
         <div className="catagory-image-wrapper">

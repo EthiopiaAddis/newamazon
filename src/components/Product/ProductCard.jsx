@@ -7,7 +7,7 @@ import "./Product.css";
 import { useStateValue } from "../Dataprovider/DataProvider.js";
 import { actionType } from "../../Utility/ActionType";
 
-const ProductCard = ({ product }) => {
+const ProductCard = ({ product, singleView }) => {
   const [, dispatch] = useStateValue();
 
   const addToCart = () => {
@@ -25,13 +25,21 @@ const ProductCard = ({ product }) => {
 
   return (
     <div className="product_card">
-      <Link
-        to={`/product/${product.id}`}
-        style={{ textDecoration: "none", color: "inherit" }}
-      >
-        <img src={product.image} alt={product.title} />
-        <h4>{product.title}</h4>
-      </Link>
+      {!singleView ? (
+        <Link
+          to={`/product/${product.id}`}
+          style={{ textDecoration: "none", color: "inherit" }}
+        >
+          <img src={product.image} alt={product.title} />
+          <h4>{product.title}</h4>
+        </Link>
+      ) : (
+        <>
+          <img src={product.image} alt={product.title} />
+          <h2>{product.title}</h2>
+          <p className="product_description">{product.description}</p>
+        </>
+      )}
 
       <div className="rating_price_wrapper">
         <Rating

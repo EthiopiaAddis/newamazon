@@ -15,21 +15,18 @@ function SignUp() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [mode, setMode] = useState("signin"); // new state to control mode
 
   const [{ alert: globalAlert }, dispatch] = useStateValue();
   const navigate = useNavigate();
   const location = useLocation();
-
-  // Local state for alert message coming from redirect (ProtectedRoute)
   const [navAlert, setNavAlert] = useState("");
 
   useEffect(() => {
-    // Clear global alert when this component mounts
     if (globalAlert) {
       dispatch({ type: actionType.CLEAR_ALERT });
     }
 
-    // If there is an alert message in the navigation state, set it locally
     if (location.state?.alert) {
       setNavAlert(location.state.alert);
     }
@@ -57,7 +54,8 @@ function SignUp() {
 
   const authHandler = async (e) => {
     e.preventDefault();
-    setError(""); // Clear previous errors
+    setError("");
+    setMode("signin");
 
     if (!email || !password) {
       setError("Please fill in both email and password.");
@@ -84,7 +82,8 @@ function SignUp() {
   };
 
   const createAccount = async () => {
-    setError(""); // Clear previous errors
+    setError("");
+    setMode("signup");
 
     if (!email || !password) {
       setError("Please fill in both email and password.");
@@ -123,10 +122,7 @@ function SignUp() {
       <div className="signup-box">
         <h1>Sign In</h1>
 
-        {/* Show alert from navigation state if any */}
         {navAlert && <p className="signup-error">{navAlert}</p>}
-
-        {/* Show error from auth attempts */}
         {error && <p className="signup-error">{error}</p>}
 
         <form className="signup-form" onSubmit={authHandler}>
@@ -146,14 +142,20 @@ function SignUp() {
             required
             disabled={loading}
           />
-          <button type="submit" className="signup-button" disabled={loading}>
-            {loading ? "Signing In..." : "Sign In"}
-          </button>
+
+          {/* Show Sign In button only if in "signin" mode */}
+          {mode === "signin" && (
+            <button type="submit" className="signup-button" disabled={loading}>
+              {loading ? "Signing In..." : "Sign In"}
+            </button>
+          )}
         </form>
+
         <p className="signup-disclaimer">
           By continuing, you agree to Amazon’s Conditions of Use and Privacy
           Notice.
         </p>
+
         <div className="signup-create-button">
           <button onClick={createAccount} disabled={loading}>
             {loading ? "Creating Account..." : "Create your Amazon Account"}
